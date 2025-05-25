@@ -8,6 +8,12 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseMySql(
+            Configuration.GetConnectionString("DefaultConnection"),
+            ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection"))
+        )
+    );
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
